@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password generator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Password generator</h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form method="POST" action="{{ url_for('generate_new') }}">
+        <div class="form-group">
+          <label for="url">URL <input id="url" name="url" /></label>
+        </div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="length">Password length:</label>
+          <input
+            type="number"
+            id="length"
+            name="length"
+            min="4"
+            max="122"
+            value="12"
+            required
+          />
+        </div>
+        <div class="form-group checkbox-group">
+          <label
+            ><input type="checkbox" name="uppercase" checked /> Include
+            uppercase</label
+          >
+          <label
+            ><input type="checkbox" name="lowecase" checked /> Include
+            lowercase</label
+          >
+          <label
+            ><input type="checkbox" name="numbers" checked /> Include
+            numbers</label
+          >
+          <label
+            ><input type="checkbox" name="symbols" checked /> Include
+            symbols</label
+          >
+        </div>
+        <button type="submit" class="btn">Generate password</button>
+      </form>
+
+      <div class="nav-links">
+        <a href="{{ url_for('list_passwords') }}">Saved passwords</a>
+      </div>
+    </div>
+  </body>
+</html>

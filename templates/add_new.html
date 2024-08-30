@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password generator</title>
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles.css') }}"
+  />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Add password</h1>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+      <form method="POST" action="{{ url_for('add_new') }}">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="length">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="url">Service:</label>
+          <input type="text" id="url" name="url" />
+
+        <button type="submit" class="btn mt-3">Add</button>
+      </form>
+
+      <div class="nav-links">
+        <a href=" {{ url_for('list_passwords') }} ">See passwords</a>
+      </div>
+    </div>
+  </body>
+</html>

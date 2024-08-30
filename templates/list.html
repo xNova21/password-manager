@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Saved passwords</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <form method="GET" action="{{ url_for('logout') }}">
+      <button type="submit" class="btn log-out">Log out</button>
+    </form>
+    <div class="container">
+      <h1>Saved passwords</h1>
+      <!-- add logout button -->
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %} {% if data %}
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr>
+            <td>{{ row.service }}</td>
+            <td>{{ row.username }}</td>
+            <td class="password-cell" id="password-{{ row.id }}">****</td>
+            <td>
+              <a href="{{ url_for('edit_password', id=row.id) }}">Edit</a>
+            </td>
+            <td>
+              <button
+                type="button"
+                onclick="togglePassword('{{ row.id }}', '{{ row.password }}')"
+                class="btn"
+              >
+                Show/Hide
+              </button>
+            </td>
+            <td>
+              <form method="POST" action="{{ url_for('list_passwords') }}">
+                <input type="hidden" name="id" value="{{ row.id }}" />
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No saved passwords.</p>
+      {% endif %}
+
+      <div class="nav-links">
+        <a href="{{ url_for('generate_new') }}">Generate new password</a>
+      </div>
+      <div class="nav-links">
+        <a href="{{ url_for('add_new') }}">Add password</a>
+      </div>
+    </div>
+
+    <script>
+      function togglePassword(index, password) {
+        console.log(index + " " + password);
+        let passwordCell = document.getElementById("password-" + index);
+        if (passwordCell.innerHTML === "****") {
+          passwordCell.innerHTML = password;
+        } else {
+          passwordCell.innerHTML = "****";
+        }
+      }
+    </script>
+  </body>
+</html>

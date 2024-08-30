@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password generated</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generated password</h1>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+      <div class="password">{{ password }}</div>
+      <a href="{{ url_for('generate_new') }}" class="btn"
+        >Generate new password</a
+      >
+
+      <div class="nav-links">
+        <a href="{{ url_for('list_passwords') }}"> See all passwords </a>
+      </div>
+    </div>
+  </body>
+</html>
