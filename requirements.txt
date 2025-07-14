@@ -1,4 +1,3 @@
 flask
-random
 bcrypt
 cryptography.fernet
