@@ -4,7 +4,7 @@ import random
 import string
 import os
 import bcrypt
-from cryptography import Fernet
+from cryptography.fernet import Fernet
 
 app = Flask(__name__)
 app.secret_key = 'bgAAAAABmz0GodfLRcomHAqsHUfy3p4GuLxY24i5rPjJ2A8xZMNP2e724a8XVSnC_G_5jhWbZnCHEoq5p7uRLeg1Cy3e65NQDVw=='  # Cambia esto a una clave segura
