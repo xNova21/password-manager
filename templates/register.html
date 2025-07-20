@@ -11,6 +11,9 @@
   <body>
     <div class="container">
       <h1>Register in</h1>
+       <div class="warning">
+        <p><strong>Warning:</strong> This project is only a preview. Do not enter real data, as passwords are visible.</p>
+      </div>
       {% with messages = get_flashed_messages(with_categories=true) %} {% if
       messages %} {% for category, message in messages %}
       <div class="flash {{ category }}">{{ message }}</div>
